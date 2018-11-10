@@ -26,13 +26,13 @@ void UP_RIGHT(int par_valule){
 }
 void UP_LEFT(int par_valule){
   digitalWrite(ENB,HIGH);
-   if(abs(par_valule)>255){
-    par_valule = 255;
-  }
+
   if(par_valule>=0){
-  analogWrite(IN3,abs(par_valule));
+    if(par_valule>255) par_valule = 255;
+  analogWrite(IN3,par_valule);
   analogWrite(IN4,0);}
   else{
+    if(par_valule<-255) par_valule = -255;
     analogWrite(IN3,0);
   analogWrite(IN4,abs(par_valule));
   }

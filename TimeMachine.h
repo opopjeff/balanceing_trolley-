@@ -2,7 +2,7 @@
 #ifndef _TIMEMACHINE_H_
 #define _TIMEMACHINE_H_
 unsigned int count = 0;
-int period = 1000;
+int period = 800;
 float square_wave(int val){
   if(++count > period)
   count = 0;

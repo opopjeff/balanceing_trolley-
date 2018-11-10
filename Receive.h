@@ -7,7 +7,7 @@ void para_val(){
    kp = Serial.parseFloat();
   kd = Serial.parseFloat();
   ki = Serial.parseFloat();
-  pid.set_pid(kp,ki,kd);
-}
+  pid.set_pid(kp,ki,kd);}
+
 
 #endif
