@@ -29,7 +29,7 @@ void UP_LEFT(int par_valule){
 
   if(par_valule>=0){
     if(par_valule>255) par_valule = 255;
-  analogWrite(IN3,par_valule);
+  analogWrite(IN3,abs(par_valule));
   analogWrite(IN4,0);}
   else{
     if(par_valule<-255) par_valule = -255;
@@ -37,6 +37,5 @@ void UP_LEFT(int par_valule){
   analogWrite(IN4,abs(par_valule));
   }
 }
-
 
 #endif
