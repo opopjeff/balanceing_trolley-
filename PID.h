@@ -3,50 +3,50 @@
 
 class PID{
   public:
-  void init_pid();
-  void set_pid(float,float,float);
-  float caculation_pid(float,float);
-  void i_max(float MAX);
+      void pid_init();
+      float caculate(float , float);
+      void set_pid(float , float , float);
 
-  public:
-  float KP;
-  float KD;
-  float KI;
-  volatile float error;
-  volatile float error_d;
-  volatile float error_i;
-  volatile float result;
-  volatile float error_last;
-  volatile float I_max;
+   public:
+      float KP,KD,KI;
+      float error_p;
+      float error_i;
+      float error_d;
+      float error_last;
+      float result;  
 };
 
-void PID::init_pid(){
-  KP=0;KI=0;KD=0;error = 0;error_d = 0;
-  error_i =0 ;
-}
-void PID::set_pid(float kp,float ki,float kd){
-  KP = kp;
-  KI = ki;
-  KD = kd;
+void PID::pid_init(){
+  KP = 0;
+  KD = 0;
+  KI = 0;
+  error_p = 0;
+  result = 0;
+  error_d = 0;
+  error_i = 0;
+  error_last = 0;
 }
 
-float PID::caculation_pid(float target,float real){
-  error = target - real;
-  error_d = error-error_last;
-  error_i = error_i+(target - real)*0.01;
-  error_last = error;
-  if(error_i>=I_max){
-    error_i = I_max;
-  }
-  if(error_i<-(I_max)){
-    error_i = -I_max;
-  }
-  
-  result = KP*error+KI*error_i+KD*error_d;
-  return result;
+
+void PID::set_pid(float kp,float kd,float ki){
+  KP = kp;
+  KD = kd;
+  KI = ki;
 }
-void PID::i_max(float MAX){
-  I_max = MAX;
+
+float PID::caculate(float real,float target){
+ error_p = target - real;
+ error_i = error_i + (target - real)*0.01;
+ error_d = (error_p - error_last);
+ error_last = error_p;
+
+ result = error_p*KP + error_i*KI+error_d*KD;
+ 
+ result = (result>255)?255:result;
+ result = (result<-255)?-255:result;
+
+ return result;
 }
-PID pid;
+
+
 #endif
