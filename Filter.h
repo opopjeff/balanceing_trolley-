@@ -1,12 +1,16 @@
 #ifndef _FILTER_H_
 #define _FILTER_H_
+#include <KalmanFilter.h>
 
-static float angle_z1 ;//经过互补滤波后得到的角度值
+//实例化一个卡尔曼滤波器对象，对象名称为 KalFilter
+KalmanFilter KalFilter;
+
+//卡尔曼滤波参数
+
+float Q_angle = 0.001, Q_gyro = 0.005;
+float R_angle = 0.5 , C_0 = 1;
 float K1 = 0.05,dt = 0.005;
-void first_old_complementary_filter(float,float);
+int addr = 0;
 
-void first_old_complementary_filter(float angle_z,float speed_x){    //一阶互补滤波
-  angle_z1 = K1*angle_z + (1 - K1)*(angle_z1 + speed_x *dt);
-}
 
 #endif
